@@ -17,6 +17,10 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Registration successful!");
+
+    // Save user details in localStorage
+    localStorage.setItem("user", JSON.stringify({ name: formData.name, email: formData.email }));
+
     navigate("/login");
   };
 

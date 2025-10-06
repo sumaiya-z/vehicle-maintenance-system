@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: " ",
-    password: " "
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -15,8 +15,19 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Login successful!");
-    navigate("/");
+
+    // Get user stored from signup
+    const existingUser = JSON.parse(localStorage.getItem("user"));
+
+    if (existingUser && existingUser.email === formData.email) {
+      // Re-save to "log in"
+      localStorage.setItem("user", JSON.stringify(existingUser));
+
+      alert("Login successful!");
+      navigate("/");
+    } else {
+      alert("Invalid credentials!");
+    }
   };
 
   return (
@@ -35,17 +46,32 @@ export default function Login() {
     >
       {/* Form Title */}
       <h2 style={{ fontSize: "32px", marginBottom: "10px" }}>Welcome Back!</h2>
-      <p style={{ fontSize: "18px", marginBottom: "20px" }}>Login to your account</p>
+      <p style={{ fontSize: "18px", marginBottom: "20px" }}>
+        Login to your account
+      </p>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} style={{ width: "300px", display: "flex", flexDirection: "column", gap: "15px" }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          width: "300px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px",
+        }}
+      >
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
           placeholder="Email"
-          style={{ padding: "10px", fontSize: "16px", borderRadius: "5px", border: "1px solid #ccc" }}
+          style={{
+            padding: "10px",
+            fontSize: "16px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
           required
         />
         <input
@@ -54,7 +80,12 @@ export default function Login() {
           value={formData.password}
           onChange={handleChange}
           placeholder="Password"
-          style={{ padding: "10px", fontSize: "16px", borderRadius: "5px", border: "1px solid #ccc" }}
+          style={{
+            padding: "10px",
+            fontSize: "16px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
           required
         />
         <button
@@ -67,7 +98,7 @@ export default function Login() {
             backgroundColor: "#007bff",
             color: "white",
             cursor: "pointer",
-            fontWeight: "bold"
+            fontWeight: "bold",
           }}
         >
           Login
@@ -76,7 +107,10 @@ export default function Login() {
 
       {/* Register Link */}
       <p style={{ marginTop: "15px", fontSize: "16px" }}>
-        Don't have an account? <Link to="/register" style={{ color: "#007bff" }}>Sign up</Link>
+        Don't have an account?{" "}
+        <Link to="/signup" style={{ color: "#007bff" }}>
+          Sign up
+        </Link>
       </p>
     </div>
   );

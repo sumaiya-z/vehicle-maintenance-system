@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"; // added useState & useEffec
 import engine from "../assets/engine.jpeg";
 import truck from "../assets/truck.jpeg";
 import garage from "../assets/garage.jpeg";
+import Logo from "../components/Logo"; // Logo import
 import { useNavigate } from "react-router-dom";
 
 const backgroundImages = [engine, truck, garage];
@@ -32,31 +33,44 @@ export default function Home() {
         backgroundColor: "#f5f5f5",
         textAlign: "center",
         padding: "20px",
-        position: "relative", // to position profile
+        position: "relative", // to position header
       }}
     >
-      {/* Profile in top-left corner */}
-      {userName && (
-        <div style={{
+      {/* Header with Logo left and Profile right */}
+      <div
+        style={{
           position: "absolute",
           top: "10px",
-          left: "10px",
+          left: "0",
+          right: "0",
           display: "flex",
+          justifyContent: "space-between",
           alignItems: "center",
-          gap: "10px",
-          backgroundColor: "white",
-          padding: "5px 10px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-        }}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
-            alt="Profile"
-            style={{ width: "35px", borderRadius: "50%" }}
-          />
-          <span style={{ fontWeight: "bold" }}>{userName}</span>
-        </div>
-      )}
+          padding: "0 20px",
+        }}
+      >
+        <Logo /> {/* Sapumal Logo */}
+        {userName && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              backgroundColor: "white",
+              padding: "5px 10px",
+              borderRadius: "8px",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+            }}
+          >
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
+              alt="Profile"
+              style={{ width: "35px", borderRadius: "50%" }}
+            />
+            <span style={{ fontWeight: "bold" }}>{userName}</span>
+          </div>
+        )}
+      </div>
 
       {/* Welcome Message */}
       <h1 style={{ fontSize: "36px", marginBottom: "10px" }}>

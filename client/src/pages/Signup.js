@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import image from "../assets/login.jpeg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -16,8 +17,16 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Save user details in localStorage
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ name: formData.username, email: formData.email })
+    );
+
     console.log("Signup Data:", formData);
     alert("Signup successful!");
+    navigate("/"); // go home after signup
   };
 
   return (

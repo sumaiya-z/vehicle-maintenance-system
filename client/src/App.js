@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 // Layout components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Header from "./components/Header"; // ✅ Added import
 
 // VMS Pages
 import Home from "./pages/Home";
@@ -26,7 +27,7 @@ import Dashboard from "./admin/Dashboard";
 import ManageVehicles from "./admin/ManageVehicles";
 import ManageParts from "./admin/ManageParts";
 
-const App = () => {
+function App() {
   const location = useLocation();
   const [count, setCount] = useState(0);
 
@@ -38,6 +39,8 @@ const App = () => {
 
   return (
     <div className="bg-gradient-to-tr from-indigo-500/30 to-pink-500/30 min-h-screen">
+      <Header /> {/* ✅ Added Header at the top */}
+
       {/* Show Navbar only if not admin/auth */}
       {!isAdminRoute && !isAuthRoute && <Navbar />}
 
@@ -69,6 +72,6 @@ const App = () => {
       {!isAdminRoute && !isAuthRoute && <Footer />}
     </div>
   );
-};
+}
 
 export default App;
